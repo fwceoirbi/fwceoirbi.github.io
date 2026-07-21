@@ -125,7 +125,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-syst
 .dh-meta strong{color:var(--text);}
 
 /* Visual row */
-.visual-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px;}
+.visual-row{display:flex;flex-wrap:nowrap;gap:18px;margin-bottom:26px;align-items:stretch;}
 @media(max-width:900px){.visual-row{flex-wrap:wrap;}}
 @media(max-width:580px){.visual-row{flex-direction:column;}}
 .vis-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;}
@@ -207,98 +207,6 @@ mark{background:rgba(124,111,255,.3);color:inherit;border-radius:2px;padding:0 1
 .co-pill-mat{background:rgba(252,196,107,.12);color:#fcc46b;}
 .co-pill-stk{background:rgba(129,230,217,.12);color:#81e6d9;}
 .co-pill-note{display:block;font-size:.58rem;color:var(--dim);margin-top:3px;font-weight:400;font-style:italic;}
-
-/* ══════════════════════════════════════════════════
-   RESPONSIVE — tablet (≤1024px) e mobile (≤640px)
-   ══════════════════════════════════════════════════ */
-
-/* ── HAMBURGER BUTTON (mobile only) ── */
-.menu-btn{display:none;background:none;border:none;color:var(--text);font-size:1.4rem;cursor:pointer;
-  padding:8px;margin-left:auto;}
-
-/* ── TABLET (≤1024px) ── */
-@media (max-width:1024px){
-  .topbar{padding:0 16px;}
-  .nav-tab{padding:0 14px;font-size:.82rem;}
-  .panel-l1-inner,.panel-l2-inner{padding:12px 16px;}
-  .card-row{gap:10px;}
-  .card{min-width:160px;padding:14px;}
-  .kpi-big-grid{grid-template-columns:1fr 1fr;}
-}
-
-/* ── MOBILE (≤640px) ── */
-@media (max-width:640px){
-  /* topbar: brand + hamburger, nav nascosto di default */
-  .topbar{padding:0 12px;}
-  .topbar-inner{flex-wrap:wrap;height:auto;padding:10px 0;}
-  .brand{font-size:1rem;margin-right:0;flex:1;}
-  .menu-btn{display:block;}
-  .nav-tabs{
-    display:none;width:100%;flex-direction:column;height:auto;
-    background:var(--surface);border-top:1px solid var(--border);
-    padding:6px 0;margin-top:4px;
-  }
-  .nav-tabs.open{display:flex;}
-  .nav-tab{height:40px;padding:0 16px;font-size:.9rem;border-bottom:none;border-left:3px solid transparent;}
-  .nav-tab.active{border-bottom:none;border-left-color:var(--accent);background:var(--surface2);}
-
-  /* panels */
-  .panel-l1-inner,.panel-l2-inner{padding:10px 12px;}
-  .panel-label{font-size:.75rem;}
-  .card-row{gap:8px;}
-  .card{min-width:130px;padding:12px;}
-  .card-name{font-size:.82rem;}
-  .card-num{font-size:1.3rem;}
-
-  /* l2 header */
-  .l2-header{flex-wrap:wrap;gap:6px;}
-  .l2-title{font-size:.9rem;width:100%;}
-  .btn-all{font-size:.72rem;padding:5px 10px;}
-  #l2-cat-filter{font-size:.72rem;padding:5px 8px;}
-
-  /* content */
-  .content{padding:12px;}
-  .welcome h2{font-size:1.3rem;}
-  .welcome p{font-size:.85rem;}
-  .welcome-stats{gap:10px;}
-  .ws-num{font-size:1.5rem;}
-  .ws-label{font-size:.7rem;}
-
-  /* detail view */
-  .detail-header{margin-bottom:12px;}
-  .detail-header h2{font-size:1.1rem;}
-  .dh-meta{font-size:.72rem;}
-
-  /* visuals: colonna singola */
-  .visual-row{grid-template-columns:1fr !important;gap:10px;}
-  .vis-card{padding:14px;}
-  .chart-wrap{height:180px;}
-  .kpi-big-grid{grid-template-columns:1fr 1fr;}
-  .kpi-big .val{font-size:1.2rem;}
-
-  /* tabella: scroll orizzontale, font più piccolo */
-  .table-section{border-radius:var(--r2);}
-  .table-toolbar{flex-wrap:wrap;gap:6px;padding:8px 10px;}
-  .table-toolbar input{flex:1 1 100%;font-size:.8rem;}
-  #tbl-cat{flex:1;font-size:.75rem;}
-  .btn-csv{font-size:.72rem;padding:6px 12px;}
-  table{font-size:.73rem;}
-  th{padding:8px 8px;font-size:.62rem;}
-  td{padding:7px 8px;}
-  .td-uc,.td-kpi{max-width:160px;}
-
-  /* highlights table */
-  .hl-table{font-size:.7rem;}
-  .hl-az,.hl-desc{padding:4px 6px;}
-
-  /* cat bars */
-  .cat-bar-label{width:70px;font-size:.68rem;}
-
-  /* popup */
-  .popup-box{max-width:100%;border-radius:14px 14px 0 0;bottom:0;top:auto;
-    max-height:80vh;overflow-y:auto;}
-}
-
 </style>
 </head>
 <body>
@@ -307,7 +215,6 @@ mark{background:rgba(124,111,255,.3);color:inherit;border-radius:2px;padding:0 1
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">⚡ AI KPI Intelligence</div>
-    <button class="menu-btn" onclick="document.querySelector('.nav-tabs').classList.toggle('open')" aria-label="Menu">☰</button>
     <div class="nav-tabs">
       <div class="nav-tab" id="nt-aziende"   onclick="openTab('aziende',this)">🏢 Aziende   <span class="badge" id="b-az">–</span></div>
       <div class="nav-tab" id="nt-industries" onclick="openTab('industries',this)">🏭 Industries <span class="badge" id="b-ind">–</span></div>
@@ -636,7 +543,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ── Tab toggle ─────────────────────────────────────────────
 function openTab(tab, el) {
-  document.querySelector('.nav-tabs').classList.remove('open');
   const p1 = document.getElementById('panel-l1');
   const p2 = document.getElementById('panel-l2');
 
