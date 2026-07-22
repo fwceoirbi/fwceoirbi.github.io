@@ -101,7 +101,7 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:
 .bottom-sheet{
   position:fixed;
   left:0;right:0;
-  bottom:var(--nav-h);
+  bottom:0;
   background:var(--surface);
   border-top:2px solid var(--border2);
   border-radius:16px 16px 0 0;
@@ -255,6 +255,7 @@ mark{background:rgba(124,111,255,.3);color:inherit;border-radius:2px;padding:0 1
 .welcome-active ~ nav.bottom-nav,
 body.welcome-active .bottom-nav{display:none!important;height:0!important;overflow:hidden!important;}
 body.welcome-active .content-area{bottom:0!important;}
+body.welcome-active .bottom-sheet{bottom:0;}
 
 /* ── ACCORDION AZIENDE ── */
 .acc-az-list{
@@ -502,7 +503,7 @@ body.welcome-active .content-area{bottom:0!important;}
 </div>
 
 <!-- BOTTOM NAVIGATION -->
-<nav class="bottom-nav" style="display:none">
+<nav class="bottom-nav">
   <button class="nav-item" id="nt-aziende" onclick="openTab('aziende',this)">
     <span class="nav-icon">🏢</span>
     <span>Aziende</span>
