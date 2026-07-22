@@ -286,13 +286,13 @@ body.welcome-active .bottom-nav{display:none!important;}
 /* ── POPUP MODALE (aziende + KPI detail) ── */
 .modal-overlay{
   position:fixed;inset:0;
-  background:rgba(0,0,0,.65);
+  background:transparent;
   z-index:600;
   display:flex;align-items:flex-end;
   opacity:0;transition:opacity .22s;
   pointer-events:none;
 }
-.modal-overlay.open{opacity:1;pointer-events:auto;}
+.modal-overlay.open{opacity:1;pointer-events:none;}
 .modal-box{
   width:100%;
   background:var(--surface);
@@ -301,7 +301,10 @@ body.welcome-active .bottom-nav{display:none!important;}
   display:flex;flex-direction:column;
   transform:translateY(100%);
   transition:transform .25s cubic-bezier(.4,0,.2,1);
-  overflow:hidden;
+  overflow:visible;
+  position:relative;
+  z-index:1;
+  pointer-events:auto;
 }
 .modal-overlay.open .modal-box{transform:translateY(0);}
 .modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:10px auto 0;flex-shrink:0;}
@@ -312,7 +315,7 @@ body.welcome-active .bottom-nav{display:none!important;}
 }
 .modal-title{font-size:1rem;font-weight:700;color:var(--text);}
 .modal-close{background:none;border:none;color:var(--dim);font-size:1.3rem;cursor:pointer;padding:4px 8px;line-height:1;}
-.modal-body{overflow-y:auto;padding:8px 0 16px;-webkit-overflow-scrolling:touch;}
+.modal-body{overflow-y:auto;padding:8px 0 24px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
 
 /* Aziende popup items */
 .maz-item{
@@ -363,6 +366,15 @@ body.welcome-active .bottom-nav{display:none!important;}
 }
 .nav-item.active{color:var(--accent);}
 .nav-item.active .nav-badge{background:rgba(124,111,255,.2);color:var(--accent);}
+
+.modal-backdrop{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.65);
+  z-index:598;
+}
+.modal-backdrop.open{display:block;}
+
 </style>
 </head>
 <body>
@@ -475,7 +487,8 @@ body.welcome-active .bottom-nav{display:none!important;}
 </div>
 
 <!-- MODAL OVERLAY -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+<div class="modal-backdrop" id="modal-backdrop"></div>
+<div class="modal-overlay" id="modal-overlay">
   <div class="modal-box" id="modal-box">
     <div class="modal-handle"></div>
     <div class="modal-header">
@@ -760,6 +773,9 @@ let filterOpen  = false;
 
 // ── Init ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  // Backdrop chiude il modal
+  document.getElementById('modal-backdrop').addEventListener('click', closeModalDirect);
+  document.getElementById('modal-backdrop').addEventListener('touchend', function(e){e.preventDefault();closeModalDirect();});
   // Nascondi footer sulla welcome
   document.querySelector('.bottom-nav').style.display = 'none';
 
@@ -954,13 +970,14 @@ function openModal(title, bodyHtml) {
   document.getElementById('modal-title').textContent = title;
   document.getElementById('modal-body').innerHTML = bodyHtml;
   document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('modal-backdrop').classList.add('open');
 }
 function closeModal(e) {
-  if (e && e.target !== document.getElementById('modal-overlay')) return;
   closeModalDirect();
 }
 function closeModalDirect() {
   document.getElementById('modal-overlay').classList.remove('open');
+  document.getElementById('modal-backdrop').classList.remove('open');
 }
 
 // Popup aziende aperto dalla scheda di dettaglio (usa currentRows)
@@ -1010,7 +1027,7 @@ function _openKpiPopupRow(r) {
   const col = CAT_COLORS[r.categoria]||'#454d6a';
   const catBadge = r.categoria ? `<span class="kpi-dp-pill kpi-dp-cat" style="background:${col}22;color:${col};border:1px solid ${col}55">${r.categoria}</span>` : '';
   const deltaHtml = (r.delta && r.delta !== '–' && r.delta !== '-') ? `<span class="kpi-dp-pill kpi-dp-delta">${r.delta}</span>` : '';
-  const fonteHtml = r.fonte ? `<div class="kpi-dp-fonte"><a href="${r.fonte}" target="_blank" style="color:var(--accent)">${r.fonte.length>60?r.fonte.slice(0,60)+'…':r.fonte}</a></div>` : '';
+  const fonteHtml = r.fonte ? `<div class="kpi-dp-fonte"><a href="${r.fonte}" style="color:var(--accent);word-break:break-all;font-size:.72rem;">${r.fonte.length>60?r.fonte.slice(0,60)+'...':r.fonte}</a></div>` : '';
   let html = `<div class="kpi-detail-popup">`;
   html += `<div class="kpi-dp-az">${flag}${r.azienda||''} · ${r.nazione||''} · ${r.periodo||''}</div>`;
   html += `<div class="kpi-dp-uc">${r.use_case||r.kpi||'–'}</div>`;
@@ -1452,6 +1469,9 @@ function exportCSV(){
 
 // ── Util ───────────────────────────────────────────────────
 function esc(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+
+
+
 </script>
 </body>
 </html>
