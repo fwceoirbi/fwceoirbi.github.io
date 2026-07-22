@@ -63,6 +63,7 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
 }
+.content-area.no-nav{bottom:0;}
 .content-area.filter-open{top:calc(var(--header-h) + 66px);}
 
 /* ── WELCOME SCREEN ────────────────────────────────────── */
@@ -778,6 +779,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('modal-backdrop').addEventListener('touchend', function(e){e.preventDefault();closeModalDirect();});
   // Nascondi footer sulla welcome
   document.querySelector('.bottom-nav').style.display = 'none';
+  document.getElementById('content-area').classList.add('no-nav');
 
   const azs  = [...new Set(KPI_DATA.map(r=>r.azienda).filter(Boolean))];
   const inds = [...new Set(KPI_DATA.map(r=>r.industria).filter(Boolean))];
@@ -818,6 +820,7 @@ function openTab(tab, el) {
     document.getElementById('welcome').style.display = '';
     document.getElementById('btn-filter-toggle').style.display = 'none';
     document.querySelector('.bottom-nav').style.display = 'none';
+    document.getElementById('content-area').classList.add('no-nav');
     closeL2Sheet();
     closeDetail();
     document.querySelectorAll('.nav-item').forEach(t=>t.classList.remove('active'));
@@ -834,6 +837,7 @@ function openTab(tab, el) {
 
   document.getElementById('welcome').style.display = 'none';
   document.querySelector('.bottom-nav').style.display = '';
+  document.getElementById('content-area').classList.remove('no-nav');
   const l1 = document.getElementById('l1-section');
   l1.style.display = '';
 
