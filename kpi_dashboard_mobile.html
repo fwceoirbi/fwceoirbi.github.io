@@ -350,7 +350,7 @@ body.welcome-active .content-area{bottom:0!important;}
   height:var(--nav-h);
   background:#0d0f1a;
   border-top:1px solid var(--border2);
-  display:flex;align-items:stretch;
+  display:none;align-items:stretch;
   z-index:400;
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
@@ -379,7 +379,7 @@ body.welcome-active .content-area{bottom:0!important;}
 
 </style>
 </head>
-<body>
+<body class="welcome-active">
 
 <!-- HEADER -->
 <div class="topbar">
@@ -502,7 +502,7 @@ body.welcome-active .content-area{bottom:0!important;}
 </div>
 
 <!-- BOTTOM NAVIGATION -->
-<nav class="bottom-nav" style="display:none">
+<nav class="bottom-nav">
   <button class="nav-item" id="nt-aziende" onclick="openTab('aziende',this)">
     <span class="nav-icon">🏢</span>
     <span>Aziende</span>
@@ -778,10 +778,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Backdrop chiude il modal
   document.getElementById('modal-backdrop').addEventListener('click', closeModalDirect);
   document.getElementById('modal-backdrop').addEventListener('touchend', function(e){e.preventDefault();closeModalDirect();});
-  // Nascondi footer sulla welcome
-  document.querySelector('.bottom-nav').style.display = 'none';
+  // Nascondi footer sulla welcome (già gestito da CSS body.welcome-active)
+  // document.querySelector('.bottom-nav').style.display = 'none'; // rimosso: gestito da CSS
   document.getElementById('content-area').classList.add('no-nav');
-  document.body.classList.add('welcome-active');
+  // document.body.classList.add('welcome-active'); // già nel tag body dell'HTML
 
   const azs  = [...new Set(KPI_DATA.map(r=>r.azienda).filter(Boolean))];
   const inds = [...new Set(KPI_DATA.map(r=>r.industria).filter(Boolean))];
@@ -821,6 +821,7 @@ function openTab(tab, el) {
     l1.style.display = 'none';
     document.getElementById('welcome').style.display = '';
     document.getElementById('btn-filter-toggle').style.display = 'none';
+    // Nasconde la nav e ripristina welcome state
     document.querySelector('.bottom-nav').style.display = 'none';
     document.getElementById('content-area').classList.add('no-nav');
     document.body.classList.add('welcome-active');
@@ -839,7 +840,7 @@ function openTab(tab, el) {
   el.classList.add('active');
 
   document.getElementById('welcome').style.display = 'none';
-  document.querySelector('.bottom-nav').style.display = '';
+  document.querySelector('.bottom-nav').style.display = 'flex';
   document.getElementById('content-area').classList.remove('no-nav');
   document.body.classList.remove('welcome-active');
   const l1 = document.getElementById('l1-section');
