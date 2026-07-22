@@ -253,7 +253,8 @@ mark{background:rgba(124,111,255,.3);color:inherit;border-radius:2px;padding:0 1
 
 /* Nascondi footer nella welcome */
 .welcome-active ~ nav.bottom-nav,
-body.welcome-active .bottom-nav{display:none!important;}
+body.welcome-active .bottom-nav{display:none!important;height:0!important;overflow:hidden!important;}
+body.welcome-active .content-area{bottom:0!important;}
 
 /* ── ACCORDION AZIENDE ── */
 .acc-az-list{
@@ -398,7 +399,7 @@ body.welcome-active .bottom-nav{display:none!important;}
 </div>
 
 <!-- MAIN CONTENT AREA -->
-<div class="content-area" id="content-area">
+<div class="content-area no-nav" id="content-area">
 
   <!-- WELCOME -->
   <div class="welcome" id="welcome">
