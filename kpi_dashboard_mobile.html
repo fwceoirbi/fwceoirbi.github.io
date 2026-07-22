@@ -780,6 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Nascondi footer sulla welcome
   document.querySelector('.bottom-nav').style.display = 'none';
   document.getElementById('content-area').classList.add('no-nav');
+  document.body.classList.add('welcome-active');
 
   const azs  = [...new Set(KPI_DATA.map(r=>r.azienda).filter(Boolean))];
   const inds = [...new Set(KPI_DATA.map(r=>r.industria).filter(Boolean))];
@@ -821,6 +822,7 @@ function openTab(tab, el) {
     document.getElementById('btn-filter-toggle').style.display = 'none';
     document.querySelector('.bottom-nav').style.display = 'none';
     document.getElementById('content-area').classList.add('no-nav');
+    document.body.classList.add('welcome-active');
     closeL2Sheet();
     closeDetail();
     document.querySelectorAll('.nav-item').forEach(t=>t.classList.remove('active'));
@@ -838,6 +840,7 @@ function openTab(tab, el) {
   document.getElementById('welcome').style.display = 'none';
   document.querySelector('.bottom-nav').style.display = '';
   document.getElementById('content-area').classList.remove('no-nav');
+  document.body.classList.remove('welcome-active');
   const l1 = document.getElementById('l1-section');
   l1.style.display = '';
 
