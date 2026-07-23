@@ -213,14 +213,14 @@ mark{background:rgba(124,111,255,.3);color:inherit;border-radius:2px;padding:0 1
 
 /* Badges */
 .cb{display:inline-block;padding:2px 6px;border-radius:3px;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;}
-.cb-COST{background:rgba(255,107,138,.15);color:#ff6b8a;}
-.cb-TIME{background:rgba(255,209,102,.15);color:#ffd166;}
-.cb-PRODUCTIVITY{background:rgba(0,229,176,.13);color:#00e5b0;}
-.cb-REVENUE{background:rgba(99,149,255,.18);color:#6395ff;}
-.cb-QUALITY{background:rgba(162,155,254,.15);color:#a29bfe;}
-.cb-CX{background:rgba(253,121,168,.15);color:#fd79a8;}
-.cb-FTE{background:rgba(116,185,255,.15);color:#74b9ff;}
-.aff-a{background:rgba(0,229,176,.1);color:var(--accent2);font-size:.68rem;padding:2px 5px;border-radius:3px;font-weight:600;}
+.cb-COST{background:none;color:#ff1a1a;}
+.cb-TIME{background:none;color:#fff;}
+.cb-PRODUCTIVITY{background:none;color:#fff;}
+.cb-REVENUE{background:none;color:#fff;}
+.cb-QUALITY{background:none;color:#fff;}
+.cb-CX{background:none;color:#fff;}
+.cb-FTE{background:none;color:#fff;}
+.aff-a{background:none;color:#fff;font-size:.68rem;padding:2px 5px;border-radius:3px;font-weight:600;}
 
 /* ── WELCOME NAV GRID ── */
 .welcome-nav-grid{
@@ -343,7 +343,7 @@ body.welcome-active .bottom-sheet{bottom:0;transform:translateY(100%)!important;
 .kpi-dp-label{font-size:.7rem;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
 .kpi-dp-value{font-size:.85rem;color:var(--text);line-height:1.5;}
 .kpi-dp-fonte{font-size:.72rem;color:var(--accent);word-break:break-all;margin-top:8px;}
-.aff-m{background:rgba(255,209,102,.1);color:#ffd166;font-size:.68rem;padding:2px 5px;border-radius:3px;font-weight:600;}
+.aff-m{background:none;color:#fff;font-size:.68rem;padding:2px 5px;border-radius:3px;font-weight:600;}
 
 /* ── BOTTOM NAVIGATION ─────────────────────────────────── */
 .bottom-nav{
@@ -736,10 +736,10 @@ const CO_PROFILE = {
 
 const CAT_COLORS = {
   // chiavi brevi (legacy)
-  'COST':'#ff6b8a','TIME':'#ffd166','PRODUCTIVITY':'#00e5b0',
+  'COST':'#ff1a1a','TIME':'#ffd166','PRODUCTIVITY':'#00e5b0',
   'REVENUE':'#6395ff','QUALITY':'#a29bfe','CX':'#fd79a8','FTE':'#74b9ff',
   // chiavi estese (dati correnti)
-  'Cost Reduction':'#ff6b8a','Time Savings':'#ffd166','Productivity':'#00e5b0',
+  'Cost Reduction':'#ff1a1a','Time Savings':'#ffd166','Productivity':'#00e5b0',
   'Revenue':'#6395ff','Quality':'#a29bfe','Customer Experience':'#fd79a8',
   'FTE Reduction':'#74b9ff','Efficiency':'#55efc4','Risk & Compliance':'#e17055',
   '':'#454d6a'
@@ -1314,13 +1314,13 @@ function renderVisualsFrom(rows) {
           if(!val) return;
           const {x,y}=arc.tooltipPosition();
           const pct=Math.round(val/tot*100);
-          ctx.font='bold 10px system-ui,sans-serif';
+          ctx.font='bold 12px system-ui,sans-serif';
           ctx.fillStyle='#fff';
           ctx.textAlign='center';
           ctx.textBaseline='middle';
           if(arc.outerRadius - arc.innerRadius > 18){
             ctx.fillText(`${val}`, x, y-5);
-            ctx.font='9px system-ui,sans-serif';
+            ctx.font='8px system-ui,sans-serif';
             ctx.fillStyle='rgba(255,255,255,.75)';
             ctx.fillText(`${pct}%`, x, y+7);
           }
