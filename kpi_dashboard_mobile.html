@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI KPI Intelligence</title>
+<title>Top Companies AI Use Cases</title>
 <script>/**
  * Skipped minification because the original files appears to be already minified.
  * Original file: /npm/chart.js@4.4.0/dist/chart.umd.js
@@ -68,12 +68,9 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:
 
 /* ── WELCOME SCREEN ────────────────────────────────────── */
 .welcome{text-align:center;padding:40px 20px 20px;}
-.welcome h2{font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#7c6fff,#00e5b0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 10px;}
+.welcome h2{font-size:1.35rem;font-weight:800;background:linear-gradient(135deg,#7c6fff,#00e5b0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 8px;}
+.welcome-kpi-hero{font-size:3.2rem;font-weight:900;color:#fff;text-align:center;margin:0 auto 18px;line-height:1;}
 .welcome p{color:var(--dim);font-size:.85rem;margin:0 auto 24px;max-width:300px;line-height:1.6;}
-.welcome-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;margin:0 auto 16px;}
-.ws{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 4px;text-align:center;}
-.ws-num{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,#7c6fff,#00e5b0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.ws-label{font-size:.58rem;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin-top:2px;}
 
 /* ── L1 GRID (full-width vertical list) ────────────────── */
 .l1-section{padding:8px 0;}
@@ -241,8 +238,16 @@ mark{background:rgba(124,111,255,.3);color:inherit;border-radius:2px;padding:0 1
 }
 .wnav-card:active{transform:scale(.97);background:var(--surface2);}
 .wnav-icon{font-size:2rem;line-height:1;}
-.wnav-label{font-size:.88rem;font-weight:700;color:var(--text);}
+.wnav-label{font-size:.88rem;font-weight:700;color:var(--text);margin-top:4px;}
 .wnav-badge{
+  display:inline-block;
+  margin-top:6px;
+  padding:3px 10px;
+  border-radius:12px;
+  font-size:1rem;
+  font-weight:900;
+  line-height:1.4;
+}
   position:absolute;top:10px;right:10px;
   border-radius:12px;padding:2px 8px;font-size:.68rem;font-weight:700;
 }
@@ -404,13 +409,8 @@ body.welcome-active .bottom-sheet{bottom:0;transform:translateY(100%)!important;
 
   <!-- WELCOME -->
   <div class="welcome" id="welcome">
-    <h2>AI KPI Intelligence 📊</h2>
-    <div class="welcome-stats">
-      <div class="ws"><div class="ws-num" id="ws-kpi">–</div><div class="ws-label">KPI totali</div></div>
-      <div class="ws"><div class="ws-num" id="ws-az">–</div><div class="ws-label">Aziende</div></div>
-      <div class="ws"><div class="ws-num" id="ws-ind">–</div><div class="ws-label">Industries</div></div>
-      <div class="ws"><div class="ws-num" id="ws-naz">–</div><div class="ws-label">Nazioni</div></div>
-    </div>
+    <h2>Top Companies AI Use Cases</h2>
+    <div class="welcome-kpi-hero" id="ws-kpi">–</div>
     <p>Seleziona un tab qui sotto per esplorare i KPI di adozione AI nelle aziende esaminate.</p>
     <div class="welcome-nav-grid">
       <div class="wnav-card" onclick="openTab('aziende',document.getElementById('nt-aziende'))">
@@ -793,9 +793,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('b-naz').textContent  = nazs.length;
   document.getElementById('b-cat').textContent  = cats.length;
   document.getElementById('ws-kpi').textContent = KPI_DATA.length;
-  document.getElementById('ws-az').textContent  = azs.length;
-  document.getElementById('ws-ind').textContent = inds.length;
-  document.getElementById('ws-naz').textContent = nazs.length;
   // Sync welcome nav grid badges
   document.getElementById('wnav-az').textContent  = azs.length;
   document.getElementById('wnav-ind').textContent = inds.length;
