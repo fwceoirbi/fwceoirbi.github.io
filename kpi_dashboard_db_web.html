@@ -770,7 +770,7 @@ document.addEventListener('keydown', (e) => {
 <div id="slide-viewer-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);flex-direction:column;align-items:center;justify-content:center;">
   <div style="width:100%;max-width:1430px;display:flex;flex-direction:column;align-items:center;padding:16px;box-sizing:border-box;">
     <div style="width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-      <div id="sv-title" style="color:#fff;font-size:1rem;font-weight:600;letter-spacing:.3px;flex:1;"></div>
+      <div id="sv-title" style="color:#fff;font-size:22px;font-weight:600;letter-spacing:.3px;flex:1;margin-top:-3mm;"></div>
       <button onclick="closeSlideViewer()" style="background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:1.4rem;cursor:pointer;padding:4px 12px;border-radius:8px;margin-left:16px;">✕</button>
     </div>
     <div style="position:relative;width:100%;max-height:78vh;display:flex;align-items:center;justify-content:center;">
@@ -778,7 +778,7 @@ document.addEventListener('keydown', (e) => {
       <img id="sv-img" src="" alt="Slide" style="max-width:calc(100% - 120px);max-height:88vh;border-radius:10px;box-shadow:0 4px 32px rgba(0,0,0,0.7);object-fit:contain;" onerror="this.alt='Immagine non disponibile';this.style.background='#333';this.style.color='#aaa';this.style.padding='40px';"/>
       <button id="sv-next" onclick="svNext()" style="position:absolute;right:0;z-index:2;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:2rem;cursor:pointer;padding:8px 14px;border-radius:10px;transition:background .2s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">›</button>
     </div>
-    <div id="sv-counter" style="color:#ccc;font-size:.85rem;margin-top:10px;"></div>
+    <div id="sv-counter" style="color:#fff;font-size:.95rem;font-weight:500;margin-top:10px;text-align:center;"></div>
   </div>
 </div>
 
