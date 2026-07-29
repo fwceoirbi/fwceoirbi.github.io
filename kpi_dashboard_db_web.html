@@ -786,6 +786,7 @@ document.addEventListener('keydown', (e) => {
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">⚡ Top Companies AI Use Cases</div>
+    <button onclick="goHome()" style="background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:.85rem;cursor:pointer;padding:5px 12px;border-radius:8px;margin-left:12px;font-weight:600;white-space:nowrap;" title="Torna alla home">🏠 Home</button>
     <button class="menu-btn" onclick="document.querySelector('.nav-tabs').classList.toggle('open')" aria-label="Menu">☰</button>
     <div class="nav-tabs">
       <div class="nav-tab" id="nt-aziende"   onclick="openTab('aziende',this)"><span class="ti">🏢</span> Aziende   <span class="badge" id="b-az">–</span></div>
@@ -1209,6 +1210,14 @@ function showAllKpi() {
   loadDetail(KPI_DATA, 'Tutti i KPI', true);
 }
 
+function goHome(){
+  document.getElementById('welcome').style.display='block';
+  const dv=document.getElementById('detail-view');
+  if(dv) dv.style.display='none';
+  activeTab=null; selL2=null; filteredRows=[];
+  // deselect all nav tabs
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+}
 function openTab(tab, el) {
   document.querySelector('.nav-tabs').classList.remove('open');
   const p1 = document.getElementById('panel-l1');
@@ -1414,8 +1423,8 @@ function showAllGroup() {
 // ── Load detail view ───────────────────────────────────────
 function loadDetail(rows, title, isGroup) {
   currentRows  = rows;
-  filteredRows = [...rows];
-  sortKey=''; sortDir=1;
+  filteredRows = [...rows].sort((a,b)=>(a.azienda||'').localeCompare(b.azienda||''));
+  sortKey='azienda'; sortDir=1;
 
   document.getElementById('welcome').style.display='none';
   const dv = document.getElementById('detail-view');
@@ -1594,7 +1603,7 @@ function renderVisualsFrom(rows) {
   const hlData = rows
     .filter(r => (r.delta && r.delta !== '–' && r.delta !== '-' && r.delta !== 'N/A' && String(r.delta).trim() !== '')
               || r.use_case || r.kpi)
-    ;
+    .sort((a,b)=>(a.azienda||'').localeCompare(b.azienda||''));
   const hlOrigIdx = hlData.map(r => KPI_DATA.indexOf(r));
 
   const catBadge = cat => {
