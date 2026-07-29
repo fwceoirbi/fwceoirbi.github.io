@@ -140,7 +140,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-syst
 .vis-card-chart{flex:0 0 340px;}
 .vis-card-hl{flex:1 1 auto;min-width:0;overflow:hidden;display:flex;flex-direction:column;}
 .chart-wrap{position:relative;height:240px;}
-.hl-table-wrap{flex:1 1 0;min-height:200px;max-height:300px;overflow-y:auto;}
+.hl-table-wrap{flex:1 1 0;min-height:200px;max-height:600px;overflow-y:auto;}
 .hl-table{width:100%;border-collapse:collapse;font-size:.73rem;}
 .hl-table thead th{position:sticky;top:0;background:var(--surface2);color:var(--dim);text-transform:uppercase;font-size:.63rem;letter-spacing:.5px;padding:6px 8px;text-align:left;border-bottom:1px solid var(--border2);}
 .hl-table tbody tr{border-bottom:1px solid var(--border);}
@@ -1594,7 +1594,7 @@ function renderVisualsFrom(rows) {
   const hlData = rows
     .filter(r => (r.delta && r.delta !== '–' && r.delta !== '-' && r.delta !== 'N/A' && String(r.delta).trim() !== '')
               || r.use_case || r.kpi)
-    .slice(0,50);
+    ;
   const hlOrigIdx = hlData.map(r => KPI_DATA.indexOf(r));
 
   const catBadge = cat => {
