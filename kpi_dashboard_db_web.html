@@ -677,9 +677,110 @@ function getIRData(companyName) {
   return null;
 }
 
+// ── SLIDE PAGES MAP ──────────────────────────────────────────
+const SLIDE_PAGES = {
+  'ABB':                     [3,4,5,6],
+  'Allianz':                 [7,8,9],
+  'Alphabet / Google':       [10,11,12,13],
+  'Bank of America':         [14,15,16],
+  'Bending Spoons':          [17,18],
+  'BMW Group':               [19,20],
+  'China Mobile':            [21,22,23],
+  'Deutsche Telekom':        [24,25],
+  'Enel':                    [26,27,28],
+  'Goldman Sachs':           [29,30,31,32],
+  'Iliad':                   [33,34],
+  'Intesa Sanpaolo':         [35,36,37,38,39,40,41,42,43,44,45],
+  'JPMorgan Chase':          [46,47,48],
+  'Mastercard':              [49,50,51,52,53,54,55,56,57,58,59,60,61,62],
+  'Netflix':                 [63,64],
+  'Poste Italiane':          [65,66,67,68],
+  'Salesforce':              [69,70,71,72],
+  'Schneider Electric':      [73,74,75,76,77,78],
+  'Siemens':                 [79,80,81],
+  'TIM':                     [82,83,84,85,86],
+  'Visa':                    [87,88,89,90,91,92,93,94,95],
+  'Volkswagen Group':        [96,97,98,99,100,101],
+  'Walmart':                 [102,103,104],
+  'Zurich':                  [105,106,107,109],
+  'The Walt Disney Company': [109,110],
+};
+
+const GITHUB_SLIDES_BASE = 'https://fwceoirbi.github.io/slides/';
+
+// Inject slidePages into IR_DATA entries
+(function() {
+  for (const [key, pages] of Object.entries(SLIDE_PAGES)) {
+    if (IR_DATA[key]) {
+      IR_DATA[key].slidePages = pages;
+    }
+  }
+})();
+
+// ── SLIDE VIEWER ──────────────────────────────────────────────
+let _svPages = [];
+let _svIdx = 0;
+
+function openSlideViewer(pages, title) {
+  _svPages = pages;
+  _svIdx = 0;
+  const overlay = document.getElementById('slide-viewer-overlay');
+  document.getElementById('sv-title').textContent = '📄 ' + title + ' — Slide IR';
+  overlay.style.display = 'flex';
+  renderSlide();
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSlideViewer() {
+  document.getElementById('slide-viewer-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function renderSlide() {
+  const page = _svPages[_svIdx];
+  const img = document.getElementById('sv-img');
+  const counter = document.getElementById('sv-counter');
+  img.src = '';
+  img.alt = 'Caricamento...';
+  img.src = GITHUB_SLIDES_BASE + 'pag_' + page + '.jpg';
+  counter.textContent = (_svIdx + 1) + ' / ' + _svPages.length + '  (p.' + page + ')';
+  document.getElementById('sv-prev').disabled = _svIdx === 0;
+  document.getElementById('sv-next').disabled = _svIdx === _svPages.length - 1;
+}
+
+function svPrev() { if (_svIdx > 0) { _svIdx--; renderSlide(); } }
+function svNext() { if (_svIdx < _svPages.length - 1) { _svIdx++; renderSlide(); } }
+
+// Keyboard nav
+document.addEventListener('keydown', (e) => {
+  const ov = document.getElementById('slide-viewer-overlay');
+  if (!ov || ov.style.display === 'none') return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') svNext();
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   svPrev();
+  if (e.key === 'Escape') closeSlideViewer();
+});
+
 </script>
+
+
 </head>
 <body>
+
+<!-- SLIDE VIEWER OVERLAY (must be inside body) -->
+<div id="slide-viewer-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);flex-direction:column;align-items:center;justify-content:center;">
+  <div style="width:100%;max-width:1100px;display:flex;flex-direction:column;align-items:center;padding:16px;box-sizing:border-box;">
+    <div style="width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div id="sv-title" style="color:#fff;font-size:1rem;font-weight:600;letter-spacing:.3px;flex:1;"></div>
+      <button onclick="closeSlideViewer()" style="background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:1.4rem;cursor:pointer;padding:4px 12px;border-radius:8px;margin-left:16px;">✕</button>
+    </div>
+    <div style="position:relative;width:100%;max-height:78vh;display:flex;align-items:center;justify-content:center;">
+      <button id="sv-prev" onclick="svPrev()" style="position:absolute;left:0;z-index:2;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:2rem;cursor:pointer;padding:8px 14px;border-radius:10px;transition:background .2s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">‹</button>
+      <img id="sv-img" src="" alt="Slide" style="max-width:calc(100% - 120px);max-height:78vh;border-radius:10px;box-shadow:0 4px 32px rgba(0,0,0,0.7);object-fit:contain;" onerror="this.alt='Immagine non disponibile';this.style.background='#333';this.style.color='#aaa';this.style.padding='40px';"/>
+      <button id="sv-next" onclick="svNext()" style="position:absolute;right:0;z-index:2;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:2rem;cursor:pointer;padding:8px 14px;border-radius:10px;transition:background .2s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">›</button>
+    </div>
+    <div id="sv-counter" style="color:#ccc;font-size:.85rem;margin-top:10px;"></div>
+  </div>
+</div>
 
 <!-- TOPBAR -->
 <div class="topbar">
@@ -1323,7 +1424,14 @@ function loadDetail(rows, title, isGroup) {
   const _titleEl = document.getElementById('dv-title');
   _titleEl.textContent = title;
   const _irD = getIRData(title);
-  if (_irD && _irD.irLink) {
+  if (_irD && _irD.slidePages && _irD.slidePages.length > 0) {
+    const _irLbl = document.createElement('span');
+    _irLbl.className = 'ir-label';
+    _irLbl.textContent = '🔗 Investor Relations';
+    _irLbl.title = 'Visualizza slide IR per ' + title;
+    _irLbl.onclick = (e) => { e.stopPropagation(); openSlideViewer(_irD.slidePages, title); };
+    _titleEl.appendChild(_irLbl);
+  } else if (_irD && _irD.irLink) {
     const _irLbl = document.createElement('span');
     _irLbl.className = 'ir-label';
     _irLbl.textContent = '🔗 Investor Relations';
