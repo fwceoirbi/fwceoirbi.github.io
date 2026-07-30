@@ -1522,7 +1522,7 @@ function renderVisualsFrom(rows) {
   const c=document.getElementById('dv-visuals');
   Object.values(charts).forEach(x=>x.destroy()); charts={};
   c.innerHTML=`
-    <div class="vis-card vis-card-chart"><div class="vis-title">📊 KPI per Categoria</div><div class="chart-wrap"><canvas id="vc-donut"></canvas></div><div id="donut-hint" style="text-align:center;font-size:.72rem;color:#ffffff;margin-top:12px;letter-spacing:.3px;">👆 clicca una categoria per filtrare</div></div>
+    <div class="vis-card vis-card-chart"><div class="vis-title">📊 KPI per Categoria</div><div class="chart-wrap"><canvas id="vc-donut"></canvas></div><div id="donut-hint" style="text-align:center;font-size:.72rem;color:#ffffff;margin-top:12px;letter-spacing:.3px;">👆 clicca sul grafico per filtrare</div></div>
     <div class="vis-card vis-card-hl"><div class="vis-title">🎯 KPI Highlights</div><div class="hl-table-wrap" id="vc-hl"></div></div>`;
 
   const cc={};
@@ -1591,7 +1591,7 @@ function renderVisualsFrom(rows) {
       const hint = document.getElementById('donut-hint');
       if(hint) hint.textContent = sel.value
         ? '👆 clicca sul grafico per tornare a tutte le categorie'
-        : '👆 clicca una categoria per filtrare';
+        : '👆 clicca sul grafico per filtrare';
       // sincronizza eventuale secondo filtro categoria (layer 2)
       const sel2 = document.getElementById('l2-cat-filter');
       if(sel2) sel2.value = sel.value;
