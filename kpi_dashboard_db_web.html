@@ -824,7 +824,7 @@ document.addEventListener('keydown', (e) => {
   <div class="welcome" id="welcome">
     <h2>Top Companies AI Use Cases</h2>
     <div class="welcome-stats">
-      <div class="ws ws-kpi-main ws-clickable" onclick="showAllKpi()"><div class="ws-num" id="ws-kpi">–</div><div class="ws-label">KPI totali</div></div>
+      <div class="ws ws-kpi-main ws-clickable" onclick="showAllKpi()"><div class="ws-num" id="ws-kpi">–</div><div class="ws-label">USE CASES</div></div>
     </div>
     <div class="welcome-stats welcome-stats-links">
       <div class="ws ws-clickable" onclick="openTab('aziende',document.getElementById('nt-aziende'))"><div class="ws-num" id="ws-az">–</div><div class="ws-label">Aziende</div></div>
@@ -1345,7 +1345,7 @@ function buildL1(tab) {
     return `<div class="l1-card ${e.cls}${sel}" onclick="selectL1('${esc(e.key)}')">
       <div class="lc-name">${flag}${e.name}</div>
       <div class="lc-sub">${e.sub}</div>
-      <span class="lc-badge">${e.count} KPI</span>
+      <span class="lc-badge">${e.count} USE CASES</span>
     </div>`;
   }).join('');
 }
@@ -1387,7 +1387,7 @@ function selectL1(key) {
     return `<div class="l2-card${sel}" onclick="selectL2('${esc(a)}')">
       <div class="lc-name">${flag}${a}</div>
       <div class="lc-sub">${naz}</div>
-      <span class="lc-badge">${azCount[a]} KPI</span>
+      <span class="lc-badge">${azCount[a]} USE CASES</span>
     </div>`;
   }).join('');
 
@@ -1474,7 +1474,7 @@ function loadDetail(rows, title, isGroup) {
 
 function buildMeta(rows, isGroup) {
   const parts=[];
-  parts.push(`<span><strong>${rows.length}</strong> KPI</span>`);
+  parts.push(`<span><strong>${rows.length}</strong> USE CASES</span>`);
   if(isGroup){
     const azs=[...new Set(rows.map(r=>r.azienda))];
     parts.push(`<span><strong>${azs.length}</strong> aziende</span>`);
@@ -1522,8 +1522,8 @@ function renderVisualsFrom(rows) {
   const c=document.getElementById('dv-visuals');
   Object.values(charts).forEach(x=>x.destroy()); charts={};
   c.innerHTML=`
-    <div class="vis-card vis-card-chart"><div class="vis-title">📊 KPI per Categoria</div><div class="chart-wrap"><canvas id="vc-donut"></canvas></div><div id="donut-hint" style="text-align:center;font-size:.72rem;color:#ffffff;margin-top:12px;letter-spacing:.3px;">👆 clicca sul grafico per filtrare</div></div>
-    <div class="vis-card vis-card-hl"><div class="vis-title">🎯 KPI Highlights</div><div class="hl-table-wrap" id="vc-hl"></div></div>`;
+    <div class="vis-card vis-card-chart"><div class="vis-title">📊 USE CASES per Categoria</div><div class="chart-wrap"><canvas id="vc-donut"></canvas></div><div id="donut-hint" style="text-align:center;font-size:.72rem;color:#ffffff;margin-top:12px;letter-spacing:.3px;">👆 clicca sul grafico per filtrare</div></div>
+    <div class="vis-card vis-card-hl"><div class="vis-title">🎯 Highlights</div><div class="hl-table-wrap" id="vc-hl"></div></div>`;
 
   const cc={};
   rows.forEach(r=>{if(r.categoria)cc[r.categoria]=(cc[r.categoria]||0)+1;});
@@ -1539,7 +1539,7 @@ function renderVisualsFrom(rows) {
     options:{
       responsive:true,maintainAspectRatio:false,cutout:'55%',
       plugins:{
-        legend:{position:'right',labels:{color:'#ffffff',font:{size:16},boxWidth:14,padding:9}},
+        legend:{position:'right',labels:{color:'#ffffff',font:{size:16},boxWidth:14,padding:9},onClick:function(){return false;}},
         tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw/total*100)}%)`}},
         datalabels:{display:false}
       }
@@ -1620,8 +1620,12 @@ function renderVisualsFrom(rows) {
     const sentence = (KPI_HL[String(_origIdx)] || KPI_HL[String(_hlIdx)] || (delta || uc)).slice(0, 120);
     const desc = `<span class="hl-delta-val">${sentence}</span>`;
     const az = r.azienda || '';
+    const isMultiAz = (new Set(rows.map(r2=>r2.azienda))).size > 1;
+    const azCell = az && isMultiAz
+      ? `<td class="hl-az hl-az-link" style="cursor:pointer;text-decoration:underline;text-underline-offset:2px;" onclick="loadDetail(KPI_DATA.filter(r=>r.azienda==='${az.replace(/'/g,"\\'")}'),'${az.replace(/'/g,"\\'")}',false)">${az}</td>`
+      : `<td class="hl-az">${az}</td>`;
     return `<tr>
-      <td class="hl-az">${az}</td>
+      ${azCell}
       <td class="hl-desc">${desc}</td>
       <td class="hl-cat">${catBadge(r.categoria)}</td>
     </tr>`;
@@ -1655,7 +1659,7 @@ function reloadL2Grid(rows) {
     return `<div class="l2-card${sel}" onclick="selectL2('${esc(a)}')">
       <div class="lc-name">${flag}${a}</div>
       <div class="lc-sub">${naz}</div>
-      <span class="lc-badge">${azCount[a]} KPI</span>
+      <span class="lc-badge">${azCount[a]} USE CASES</span>
     </div>`;
   }).join('');
 }
@@ -1731,7 +1735,7 @@ function renderTable(){
     <td class="td-link">${lnk(r.fonte)}</td>
   </tr>`).join('');
   document.getElementById('tbl-foot').textContent=
-    `${filteredRows.length} KPI mostrati di ${currentRows.length} totali`;
+    `${filteredRows.length} USE CASES mostrati di ${currentRows.length} totali`;
 }
 
 // ── Export ─────────────────────────────────────────────────
