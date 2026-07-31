@@ -5613,9 +5613,9 @@ function buildNewsCard(n, pfx) {
   html2 += '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;">' + tagsHtml + '</div>';
   // Riga titolo: data a sx + titolo + apri fonte inline
   var titleLink = (n.url && n.url.startsWith('http'))
-    ? ' <a href="' + n.url + '" target="_blank" rel="noopener" style="display:inline;font-size:13px;color:var(--accent);text-decoration:none;font-weight:600;white-space:nowrap;vertical-align:middle;">&#x2197;&#xFE0F; Apri la fonte</a>'
+    ? ' <a href="' + n.url + '" target="_blank" rel="noopener" style="display:inline;font-size:13px;color:var(--accent);text-decoration:none;font-weight:600;white-space:nowrap;vertical-align:middle;">&#x2197;&#xFE0F; link</a>'
     : '';
-  html2 += '<div style="font-size:18px;font-weight:700;color:#ffffff;line-height:1.35;margin-bottom:8px;"><span style="font-size:18px;color:#ffffff;font-weight:700;margin-right:8px;vertical-align:middle;white-space:nowrap;">' + dateStr + ' -</span> ' + escapeHtml(n.title) + titleLink + '</div>';
+  html2 += '<div style="font-size:18px;font-weight:700;color:#ffffff;line-height:1.35;margin-bottom:8px;"><span style="font-size:18px;color:#ffffff;font-weight:700;margin-right:8px;vertical-align:middle;white-space:nowrap;">' + dateStr + ' |</span><span style="margin-left:8px;">' + escapeHtml(n.title) + '</span>' + titleLink + '</div>';
 
   // Sintesi: mostra esattamente 2 righe via CSS clamp, "Leggi di più" mostra tutto
   var fullText = n.sintesi || '';
