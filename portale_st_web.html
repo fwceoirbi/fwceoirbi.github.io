@@ -5611,13 +5611,13 @@ function buildNewsCard(n, pfx) {
   // Titolo 24px bold bianco brillante
   var html2 = '<div class="news-card" style="border-radius:0;border-top:none;border-left:none;border-right:none;border-bottom:1px solid var(--border);padding:18px 0;margin:0;background:transparent;">';
   html2 += '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;">' + tagsHtml + '</div>';
-  html2 += '<div style="font-size:24px;font-weight:700;color:#ffffff;line-height:1.25;margin-bottom:8px;">' + escapeHtml(n.title) + '</div>';
+  html2 += '<div style="font-size:18px;font-weight:700;color:#ffffff;line-height:1.25;margin-bottom:8px;">' + escapeHtml(n.title) + '</div>';
 
   // Sintesi: mostra esattamente 2 righe via CSS clamp, "Leggi di più" mostra tutto
   var fullText = n.sintesi || '';
   if (fullText) {
-    html2 += '<p id="' + cardId + '-prev" style="color:#C8D6E5;font-size:15px;margin:0 0 4px 0;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + escapeHtml(fullText) + '</p>';
-    html2 += '<div id="' + cardId + '-rest" style="display:none;color:#C8D6E5;font-size:15px;margin:0 0 4px 0;line-height:1.5;">' + escapeHtml(fullText) + '</div>';
+    html2 += '<p id="' + cardId + '-prev" style="color:#C8D6E5;font-size:14px;margin:0 0 4px 0;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + escapeHtml(fullText) + '</p>';
+    html2 += '<div id="' + cardId + '-rest" style="display:none;color:#C8D6E5;font-size:14px;margin:0 0 4px 0;line-height:1.5;">' + escapeHtml(fullText) + '</div>';
   }
 
   // Data
