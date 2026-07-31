@@ -5611,7 +5611,11 @@ function buildNewsCard(n, pfx) {
   // Titolo 24px bold bianco brillante
   var html2 = '<div class="news-card" style="border-radius:0;border-top:none;border-left:none;border-right:none;border-bottom:1px solid var(--border);padding:18px 0;margin:0;background:transparent;">';
   html2 += '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;">' + tagsHtml + '</div>';
-  html2 += '<div style="font-size:18px;font-weight:700;color:#ffffff;line-height:1.25;margin-bottom:8px;">' + escapeHtml(n.title) + '</div>';
+  // Riga titolo: data a sx + titolo + apri fonte inline
+  var titleLink = (n.url && n.url.startsWith('http'))
+    ? ' <a href="' + n.url + '" target="_blank" rel="noopener" style="display:inline;font-size:13px;color:var(--accent);text-decoration:none;font-weight:600;white-space:nowrap;vertical-align:middle;">&#x2197;&#xFE0F; Apri la fonte</a>'
+    : '';
+  html2 += '<div style="font-size:18px;font-weight:700;color:#ffffff;line-height:1.35;margin-bottom:8px;"><span style="font-size:12px;color:var(--text-muted);font-weight:400;margin-right:10px;vertical-align:middle;white-space:nowrap;">' + dateStr + '</span>' + escapeHtml(n.title) + titleLink + '</div>';
 
   // Sintesi: mostra esattamente 2 righe via CSS clamp, "Leggi di più" mostra tutto
   var fullText = n.sintesi || '';
@@ -5620,27 +5624,10 @@ function buildNewsCard(n, pfx) {
     html2 += '<div id="' + cardId + '-rest" style="display:none;color:#C8D6E5;font-size:14px;margin:0 0 4px 0;line-height:1.5;">' + escapeHtml(fullText) + '</div>';
   }
 
-  // Data
-  html2 += '<div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">\uD83D\uDCC5 ' + dateStr + '</div>';
-
-  // Riga inferiore: Leggi di più a sx, Apri la fonte a dx
-  html2 += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">';
-
   // Leggi di più
   if (fullText) {
-    html2 += '<button onclick="toggleFull(this,\'' + cardId + '\')" style="display:inline-flex;align-items:center;gap:4px;background:none;border:none;color:var(--accent);font-size:13px;cursor:pointer;padding:0;font-weight:600;">\u25BC Leggi di pi\u00F9</button>';
-  } else {
-    html2 += '<span></span>';
+    html2 += '<button onclick="toggleFull(this,\'' + cardId + '\')" style="display:inline-flex;align-items:center;gap:4px;background:none;border:none;color:var(--accent);font-size:13px;cursor:pointer;padding:0;font-weight:600;margin-bottom:4px;">\u25BC Leggi di pi\u00F9</button>';
   }
-
-  // Apri la fonte
-  if (n.url && n.url.startsWith('http')) {
-    html2 += '<a href="' + n.url + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--accent);text-decoration:none;font-weight:600;">\u2197\uFE0F Apri la fonte</a>';
-  } else {
-    html2 += '<span></span>';
-  }
-
-  html2 += '</div>';
 
   html2 += '</div>';
   return html2;
